@@ -4,5 +4,6 @@ location = "./migrations"
 src_folder = "./."
 
 [tool.isort]
+profile = "black"
 known_first_party = ["app"]
 skip = ["env"]
