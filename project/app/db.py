@@ -10,7 +10,10 @@ log = logging.getLogger("uvicorn")
 
 def get_db_url() -> str:
     url = os.environ.get("DATABASE_URL", "")
-    return url.replace("postgresql://", "postgres://", 1)
+    url = url.replace("postgresql://", "postgres://", 1)
+    if "?" not in url:
+        url += "?ssl=require"
+    return url
 
 
 TORTOISE_ORM = {
