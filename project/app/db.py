@@ -11,7 +11,7 @@ log = logging.getLogger("uvicorn")
 def get_db_url() -> str:
     url = os.environ.get("DATABASE_URL", "")
     url = url.replace("postgresql://", "postgres://", 1)
-    if "?" not in url:
+    if os.environ.get("ENVIRONMENT") == "prod" and "?" not in url:
         url += "?ssl=require"
     return url
 

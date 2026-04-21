@@ -2,15 +2,7 @@ from typing import Union
 
 from app.models.pydantic import SummaryPayloadSchema, SummaryUpdatePayloadSchema
 from app.models.tortoise import TextSummary
-
-
-async def post(payload: SummaryPayloadSchema) -> int:
-    summary = TextSummary(
-        url=payload.url,
-        summary="dummy summary",
-    )
-    await summary.save()
-    return summary.id
+from app.summarizer import generate_summary
 
 
 async def get(id: int) -> Union[dict, None]:
@@ -37,3 +29,8 @@ async def put(id: int, payload: SummaryUpdatePayloadSchema) -> Union[dict, None]
         updated_summary = await TextSummary.filter(id=id).first().values()
         return updated_summary
     return None
+
+async def post(payload: SummaryPayloadSchema) -> int:
+    summary = TextSummary(url=payload.url, summary="")
+    await summary.save()
+    return summary.id

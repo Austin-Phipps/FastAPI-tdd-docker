@@ -8,6 +8,14 @@ from app.config import Settings, get_settings
 from app.main import create_application
 
 
+@pytest.fixture(autouse=True)
+def mock_generate_summary(monkeypatch):
+    async def _mock(summary_id, url):
+        pass
+
+    monkeypatch.setattr("app.api.summaries.generate_summary", _mock)
+
+
 def get_settings_override():
     return Settings(testing=1, database_url=os.environ.get("DATABASE_TEST_URL"))
 
