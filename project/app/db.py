@@ -29,7 +29,7 @@ def init_db(app: FastAPI) -> None:
         app,
         db_url=get_db_url(),
         modules={"models": ["app.models.tortoise"]},
-        generate_schemas=False,
+        generate_schemas=True,
         add_exception_handlers=True,
     )
 
